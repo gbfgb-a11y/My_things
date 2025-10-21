@@ -1,3 +1,4 @@
+
 from tkinter import *; import re
 tk = Tk()
 tk.geometry("200x370")
@@ -5,19 +6,62 @@ tk.title('Calculator')
 string=''
 def calculation(what):
     global string
-    if re.fullmatch(r"[0-9\+\-\*/\(\)\.\^ Clear=]+", what):
-        if what == 'Clear':
+    if re.fullmatch(r"[0-9\+\=\-\/\*\*/\(\)\.\^ Clear=BackSpace]+", what):
+        if what == 'Clear'or what == 'BackSpace':
             string=''
         if what == '=':
             string= eval(string)
         else:
-            if re.fullmatch(r"[0-9\+\-\*/\(\)\.\^ =]+", what):    
+            if re.fullmatch(r"[0-9\+\-\/\*\*/\(\)\.\^ =-]+", what):    
                 string = str(string)+what
     else:   
         string='ERROR'
     Label(tk, text=string,font=('Arial', 14)).place(x='0',y='0',width='200',height='100')
+def binding(event):
+    if event.char == '1':
+        calculation(event.char)
+    if event.char == '2':
+        calculation(event.char)
+    if event.char == '3':
+        calculation(event.char)
+    if event.char == '4':
+        calculation(event.char)
+    if event.char == '5':
+        calculation(event.char)
+    if event.char == '6':
+        calculation(event.char)
+    if event.char == '7':
+        calculation(event.char)
+    if event.char == '8':
+        calculation(event.char)
+    if event.char == '9':
+        calculation(event.char)
+    if event.char == '0':
+        calculation(event.char)
+    if event.char == '+':
+        calculation(event.char)
+    if event.char == '-':
+        calculation(event.char)
+    if event.keysym == 'BackSpace':
+        calculation(event.keysym)
+    if event.keysym == 'Delete':
+        calculation(event.char)
+    if event.char == '=':
+        calculation(event.char)
+    if event.char == 'n':
+        snoop()
+    if event.char == '/':
+        calculation(event.char)
+    if event.char == '*':
+        calculation(event.char)
+snoopoff = 0
 def snoop():
+    global snoopoff
     Label(tk, image=img).place(x='0',y='0',width='200',height='100')
+    snoopoff+=1
+    if snoopoff == 2:
+        snoopoff=0
+        Label(tk, text=string,font=('Arial', 14)).place(x='0',y='0',width='200',height='100')
 w = 50;h=50
 frame = Frame(tk,borderwidth=5, relief='sunken').place(x='0',y='0',width='200',height='100')
 img = PhotoImage(file=r'C:\Users\denke\Desktop\SOMETHING\supercalculator_\snop.png')
@@ -43,6 +87,6 @@ button17 = Button(tk, text=')', command=lambda: calculation(')')).place(x='0',y=
 button18 = Button(tk, text='=', command=lambda: calculation('=')).place(x='150',y='300',width=w,height=h)
 button19 = Button(tk, text='Clear', command=lambda: calculation('Clear')).place(x='50',y='300',width=100,height=h)
 snoop_button = Button(tk, text='snoop', command=snoop).place(x='0',y='350',width='200',height='20')
-
+tk.bind('<Key>', binding)
 
 tk.mainloop()
