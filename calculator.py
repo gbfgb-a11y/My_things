@@ -12,7 +12,7 @@ def calculation(what):
             string= eval(string)
         else:
             if re.fullmatch(r"[0-9\+\-\*/\(\)\.\^ =]+", what):    
-                string = string+what
+                string = str(string)+what
     else:   
         string='ERROR'
     Label(tk, text=string,font=('Arial', 14)).place(x='0',y='0',width='200',height='100')
@@ -43,5 +43,6 @@ button17 = Button(tk, text=')', command=lambda: calculation(')')).place(x='0',y=
 button18 = Button(tk, text='=', command=lambda: calculation('=')).place(x='150',y='300',width=w,height=h)
 button19 = Button(tk, text='Clear', command=lambda: calculation('Clear')).place(x='50',y='300',width=100,height=h)
 snoop_button = Button(tk, text='snoop', command=snoop).place(x='0',y='350',width='200',height='20')
+
 
 tk.mainloop()
